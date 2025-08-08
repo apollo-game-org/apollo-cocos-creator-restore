@@ -32,7 +32,7 @@ def parse_json_files(directory):
         for file in files:
             if file.endswith('.json'):
                 json_file = os.path.join(root, file)
-                with open(json_file, 'r') as f:
+                with open(json_file, 'r', encoding='utf-8') as f:
                     json_data = json.load(f)
                 try:
                  if json_data[3][0][0] != 'sp.SkeletonData':
@@ -45,9 +45,9 @@ def parse_json_files(directory):
                 spine_name = os.path.basename(os.path.dirname(json_file))
                 
                 if isinstance(spine_data[4], dict):
-                    with open(os.path.join(root, f'{spine_name}.skel.json'), 'w') as f:
+                    with open(os.path.join(root, f'{spine_name}.skel.json'), 'w', encoding='utf-8') as f:
                         json.dump(spine_data[4], f)
-                    with open(os.path.join(root, f'{spine_name}.atlas'), 'w') as f:
+                    with open(os.path.join(root, f'{spine_name}.atlas'), 'w', encoding='utf-8') as f:
                         f.write(spine_data[2])
                     png_files = [f for f in os.listdir(root) if f.endswith('.png')]
                     if len(png_files) > 1:
@@ -55,7 +55,7 @@ def parse_json_files(directory):
                     elif len(png_files) == 1:
                         shutil.copyfile(os.path.join(root, png_files[0]), os.path.join(root, f'{spine_name}.png'))
                 else:
-                    with open(os.path.join(root, f'{spine_name}.atlas'), 'w') as f:
+                    with open(os.path.join(root, f'{spine_name}.atlas'), 'w', encoding='utf-8') as f:
                         f.write(spine_data[3])
                     bin_files = [f for f in os.listdir(root) if f.endswith('.bin')]
                     if len(bin_files) > 1:
